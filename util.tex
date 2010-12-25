@@ -1,0 +1,22 @@
+
+% ユーザが定義したマクロなど．
+\makeatletter
+\let\@ARRAY\@array \def\@array{\def\<{\inhibitglue}\@ARRAY}
+\def\<{\(\langle\)}
+\def\>{\(\rangle\)}
+\def\|{\verb|}
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\LATEX{\iLATEX\Large}
+\def\LATEx{\iLATEX\normalsize}
+\def\LATex{\iLATEX\small}
+\def\iLATEX#1{L\kern-.36em\raise.3ex\hbox{#1\bf A}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+\def\LATEXe{\ifx\LaTeXe\undefined \LaTeX 2e\else\LaTeXe\fi}
+\def\LATExe{\ifx\LaTeXe\undefined \iLATEX\scriptsize 2e\else\LaTeXe\fi}
+\def\Quote{\list{}{}\item[]}
+\let\endQuote\endlist
+\def\TT{\if@LaTeX@e\tt\fi}
+\def\CS#1{\if@LaTeX@e\tt\expandafter\string\csname#1\endcsname\else
+	$\backslash$#1\fi}
+
