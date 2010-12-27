@@ -25,15 +25,9 @@ web上での知識の共同編集方法の代表的な物としてはwikiが挙�
 \section{システムの概要}
 本システムには，1.重さにより物体を認識する機能，2.物についてweb上で文書を共同編集する機能，3.web上の文書の更新をユーザに適切に通知する機能 がある．ここでは，実装したシステムの使い方について説明する．
 
+\subsection{はかり}
+
 ユーザは研究室内にある工具や道具をはかりに乗せる．（図：\ref{fig:sensor}）はかりは重さを計測し，物体と重さのデータベースを検索する．該当する重さが存在すれば，はかりが接続されたコンピュータにウェブブラウザが表示される．データベース上に該当する物体が無ければ，新しく名前を付ける画面が表示される．
-
-ウェブブラウザ上ではgyaazzというアウトラインエディタが表示される（図：\ref{fig:gyaazz}）gyaazzはgyazz\cite{gyazz}を参考にして実装されたウェブアプリケーションである．マウスでクリックした行を画面遷移する事無くその場で編集でき，[と]の記号のみを用いたマークアップで簡潔に画像やリンクなどを挿入できる．emacs風のキーボードショートカット機能を持ち，アウトラインエディタとしてのブロック単位の編集が容易になるようにデザインされている．複数のユーザが同時に1つのページを編集した場合も，編集内容は自動的に同期される．ユーザはこのgyaazz上で物に関する情報を記述する．
-
-gyazz-checkerはgyaazz上での編集をリアルタイムに他のユーザに更新通知できるツールである．gyazzおよびgyaazzの更新を，パソコン上のインスタントメッセンジャー，スマートフォン，twitterに通知できる．gyaazzはアウトラインエディタなので，更新の差分は行毎になる．gyazz-checkerは数分おきにページの上から順に行毎に差分を取り，変更があった行と新規挿入された行をユーザに通知する．この行毎の差分が様々なメディアでの表示に容易に最適化できる事が重要である．
-
-gyazz-checkerはパソコン上で使うインスタントメッセンジャーに対しては，全ての変更を通知する．5秒間隔で1行毎に送信する事で，まるでチャットの様に受信される．（図：\ref{fig:checker}）また通知にはim.kayac.com\cite{imkayac}も対応していて，iPhoneやAndroid等のスマートフォンにもpush通知を行うことができる．
-
-gyazz-checkerにtwitterアカウントを設定しておくと，そのアカウントにも更新通知が行われる．（図：\ref{fig:twitter}）しかしtwitterに全ての差分の通知を行うとタイムラインがgyazz-checkerで埋まってしまう．研究室メンバーはそれぞれtwitter上で300から2000人をfollowしている．メンバーが煩わしさを感じずにgyaazz上の更新の盛り上がりをtwitter上でも感じられる様に調整した結果，1ページ毎に1行から3行を10分毎にtwitterに通知する事にした．
 
 \begin{figure}
   \begin{center}
@@ -44,6 +38,10 @@ gyazz-checkerにtwitterアカウントを設定しておくと，そのアカウ
   \label{fig:sensor}
 \end{figure}
 
+\subsection{gyaazz}
+
+ウェブブラウザ上ではgyaazzというアウトラインエディタが表示される（図：\ref{fig:gyaazz}）gyaazzはgyazz\cite{gyazz}を参考にして実装されたウェブアプリケーションである．マウスでクリックした行を画面遷移する事無くその場で編集でき，[と]の記号のみを用いたマークアップで簡潔に画像やリンクなどを挿入できる．emacs風のキーボードショートカット機能を持ち，アウトラインエディタとしてのブロック単位の編集が容易になるようにデザインされている．複数のユーザが同時に1つのページを編集した場合も，編集内容は自動的に同期される．ユーザはこのgyaazz上で物に関する情報を記述する．
+
 \begin{figure}
   \begin{center}
     \includegraphics[height=100mm]{img/gyaazz.png}
@@ -52,6 +50,14 @@ gyazz-checkerにtwitterアカウントを設定しておくと，そのアカウ
   \ecaption{gyaazz : outline editor web application}
   \label{fig:gyaazz}
 \end{figure}
+
+\subsection{gyazz-checker}
+
+gyazz-checkerはgyaazz上での編集をリアルタイムに他のユーザに更新通知できるツールである．gyazzおよびgyaazzの更新を，パソコン上のインスタントメッセンジャー，スマートフォン，twitterに通知できる．gyaazzはアウトラインエディタなので，更新の差分は行毎になる．gyazz-checkerは数分おきにページの上から順に行毎に差分を取り，変更があった行と新規挿入された行をユーザに通知する．この行毎の差分が様々なメディアでの表示に容易に最適化できる事が重要である．
+
+gyazz-checkerはパソコン上で使うインスタントメッセンジャーに対しては，全ての変更を通知する．5秒間隔で1行毎に送信する事で，まるでチャットの様に受信される．（図：\ref{fig:checker}）また通知にはim.kayac.com\cite{imkayac}も対応していて，iPhoneやAndroid等のスマートフォンにもpush通知を行うことができる．
+
+gyazz-checkerにtwitterアカウントを設定しておくと，そのアカウントにも更新通知が行われる．（図：\ref{fig:twitter}）しかしtwitterに全ての差分の通知を行うとタイムラインがgyazz-checkerで埋まってしまう．研究室メンバーはそれぞれtwitter上で300から2000人をfollowしている．メンバーが煩わしさを感じずにgyaazz上の更新の盛り上がりをtwitter上でも感じられる様に調整した結果，1ページ毎に1行から3行を10分毎にtwitterに通知する事にした．
 
 \begin{figure}
   \begin{center}
@@ -72,9 +78,53 @@ gyazz-checkerにtwitterアカウントを設定しておくと，そのアカウ
 \end{figure}
 
 \section{システムの実装}
-はかりがある．Arduinoで重さ読む．重さとIDのDBを参照してwikiページを開く．DBはmongod．wikiはsinatraとtokyocabinetでできている．wikiの更新は定期的にtwitterとiPhoneとAndroidとIMに流れる．便利！！
+本システムは2章で説明した通り，はかりとアウトラインエディタと更新通知システムの3つに分けられる．この章では3つを順に説明する．
+
+\subsection{はかりの実装}
+ストレンゲージは体重計やキッチンスケールに使われる部品である．金属製の角棒の2面に抵抗が貼りつけられていて，棒のわずかなしなりに伴い貼りつけられた抵抗も伸縮する．2つの抵抗値の差分を計測する事で，物の重さをはかる事ができる．
+
+ストレンゲージはタニタ社製キッチンスケール KD-189を分解して取得した．オペアンプAD620BNZで差動増幅回路を組み，その出力をArduino\cite{arduino}の10bitADコンバータで計測する．AD620BNZのゲイン設定用抵抗には温度係数の小さい巻線抵抗を使用する事で，気温の変化による誤差を小さくする事ができた．計測値をUSBケーブルでパソコンに送信し，パソコン上のRubyスクリプトで100回分の平均と値の標準偏差を取得する．パソコン上のプログラムは，初回起動時に10グラム，20グラム，30グラムの重さの分銅を乗せて値を学習させる事でキャリブレーションが行える．ストレンゲージ毎に個体差があるが，約0.5グラム単位で重さを計測する事ができた．100回分の重さの標準偏差が0.5グラム以下の時，物体がはかりの上で静止していると認識し，重さと物体のデータベースに問い合わせる．データベースはkey-valueストアであるMongoDB\cite{mongodb}と，RubyのウェブアプリケーションフレームワークであるSinatra\cite{sinatra}で実装されていて，HTTPとJSONによるRESTfulなAPIで扱うことができる．重さデータベースは重さに対して適切なgyaazzページのURLを返すので，それをパソコン上のウェブブラウザで表示する．
+
+\subsection{gyaazzの実装}
+gyaazzはSinatraで実装したウェブアプリケーションで，データベースにはTokyo Cabinet\cite{tc}を利用した．UIはjQuery\cite{jQuery}を利用してJavaScriptで実装した．クリックした行毎にマウスイベントを割り当ててあり，HTMLをformタグに書き換える事で行ごとの画面遷移なしの編集を実現している．キーボードの上下左右キーおよびemacs風のctrlキーとp,n,b,f,a,eキーを同時に押す事により，カーソルが移動する．編集中の行でctrlキーと上下左右キーを同時に押すことで，その行を上下の行と入れ替えたり，インデントする事ができる．shiftキーと同時に押すとアウトラインエディタとしてブロック毎に入れ替えたり，インデントを変更できる．
+ユーザが20秒間操作していないか，ウェブブラウザのウィンドウが非アクティブになった時に行の編集状態が解除される．この時サーバーと通信してデータを保存し，ウェブブラウザ上の表示もサーバーから取得した最新の物に更新する．これにより，複数人での同時編集が可能となっている．
+
+\subsection{gyazz-checkerの実装}
+
+
+wikiの更新は定期的にtwitterとiPhoneとAndroidとIMに流れる．便利！！
 githubへのリンクを貼りまくろう．はかりとか更新通知の精度・速度については適当に書く．
 
 
 \section{まとめ}
 重さで物体認識してweb上の情報と関連付け，wikiも作って，通知機能も作った．便利である．
+
+
+\begin{thebibliography}{10}
+
+\bibitem{mediawiki}
+MediaWiki. http://www.mediawiki.org
+
+\bibitem{gyazz}
+Gyazz. http://gyazz.com
+
+\bibitem{imkayac}
+im.kayac.com. http://im.kayac.com
+
+\bibitem{arduino}
+Arduino. http://arduino.cc
+
+\bibitem{mongodb}
+MongoDB. http://www.mongodb.org
+
+\bibitem{sinatra}
+Sinatra. http://www.sinatrarb.com
+
+\bibitem{jQuery}
+jQuery. http://jquery.com
+
+\bibitem{tc}
+TokyoCabinet. http://fallabs.com/tokyocabinet/
+
+\end{thebibliography}
+
