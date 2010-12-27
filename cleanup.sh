@@ -11,4 +11,3 @@ rm *.lot
 rm *.lof
 rm *.toc
 rm \#*\#
-
